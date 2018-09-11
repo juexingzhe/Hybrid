@@ -1,0 +1,69 @@
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>
+        js调用java
+    </title>
+</head>
+
+<body>
+<div>
+    <p>===================================</p>
+    <pre id="show1"/>
+    <div align="center">
+        <p>
+            <input type="button" id="no1" value="获取用户信息" onclick="getUserInfo();"
+            />
+        </p>
+    </div>
+</div>
+<div>
+    <p>===================================</p>
+</div>
+<div>
+    <pre id="show2"/>
+    <div align="center">
+        <p>
+            <input type="button" id="no2" value="获取地址" onclick="getAddress();"
+            />
+        </p>
+    </div>
+</div>
+<div>
+    <p>===================================</p>
+</div>
+</body>
+<script>
+    document.getElementById("no1").style.display="inline"
+    document.getElementById("no2").style.display="inline"
+
+    function getUserInfo(){
+        window.jsInterface.callJavaFunction(
+            'getUserInfo',
+            JSON.stringify({'info': 'I am JS, want to get UserInfo from Java'})
+        )
+    }
+
+    function onUserInfoResult(repsonseData){
+        document.getElementById("show1").innerHTML = "repsonseData from java:\n\n\naccount = " + repsonseData.account +
+        "\npassword = " + repsonseData.password
+        document.getElementById("no1").style.display="none"
+    }
+
+    function getAddress(){
+        let result = prompt('getAddress', JSON.stringify({'info': 'I am JS, want to get Address from Java'}));
+        onAddressResult(JSON.parse(result))
+    }
+
+    function onAddressResult(repsonseData){
+        document.getElementById("show2").innerHTML = "repsonseData from java:\n\n\naddress = " + repsonseData.address
+        document.getElementById("no2").style.display="none"
+    }
+
+
+
+
+
+</script>
+
+</html>
